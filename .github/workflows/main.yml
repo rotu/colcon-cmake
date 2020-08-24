@@ -18,7 +18,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
-      - run: pip install ${{ github.workspace }}/colcon-cmake-src
+      - run: pip3 install ${{ github.workspace }}/colcon-cmake-src
+      - run: colcon version-check
       - name: Install and test ROS
         uses: ros-tooling/action-ros-ci@master
         with:
