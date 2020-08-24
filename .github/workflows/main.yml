@@ -29,4 +29,4 @@ jobs:
         with:
           package-name: rclcpp test_rclcpp
           target-ros2-distro: ${{ matrix.target-ros2-distro }}
-          vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/foxy/ros2.repos
+          vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/${{ matrix.target-ros2-distro }}/ros2.repos
