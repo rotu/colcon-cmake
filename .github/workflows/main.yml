@@ -20,9 +20,9 @@ jobs:
         with:
           path: colcon-cmake-src
       - if: runner.os == 'Windows'
-        run: pip3 install --upgrade ${{ github.workspace }}/colcon-cmake-src colcon-common-extensions --upgrade-strategy eager
+        run: pip3 install --upgrade ${{ github.workspace }}/colcon-cmake-src colcon-common-extensions catkin-pkg --upgrade-strategy eager
       - if: runner.os != 'Windows'
-        run: sudo pip3 install --upgrade ${{ github.workspace }}/colcon-cmake-src colcon-common-extensions --upgrade-strategy eager
+        run: sudo pip3 install --upgrade ${{ github.workspace }}/colcon-cmake-src colcon-common-extensions catkin-pkg --upgrade-strategy eager
       - run: colcon version-check
       - name: Install and test ROS
         uses: ros-tooling/action-ros-ci@master
