@@ -26,6 +26,34 @@ jobs:
           colcon-common-extensions
           catkin-pkg
           rosdep
+          babeltrace
+          catkin-pkg-modules
+          cryptography
+          empy
+          flake8
+          ifcfg
+          importlib-metadata
+          lark-parser
+          lttng
+          lxml
+          matplotlib
+          mock
+          mypy
+          netifaces
+          numpy
+          packaging
+          pkg-resources
+          psutil
+          pycodestyle
+          pydot
+          pygraphviz
+          pytest
+          pytest-cov
+          pytest-mock
+          qt5-bindings
+          rosdistro-modules
+          setuptools
+          yaml
       - run: colcon version-check
       - run: pip3 list
       - name: Install and test ROS
