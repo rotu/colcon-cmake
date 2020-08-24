@@ -16,6 +16,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - uses: ros-tooling/setup-ros@master
       - run: colcon version-check
+      - run: pip3 list
+      - if: runner.os != 'Windows'
+        run: sudo pip3 list
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
