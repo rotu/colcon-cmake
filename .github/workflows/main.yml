@@ -19,9 +19,9 @@ jobs:
         with:
           path: colcon-cmake-src
       - if: runner.os == 'Windows'
-        run: pip3 install ${{ github.workspace }}/colcon-cmake-src
+        run: pip3 install ${{ github.workspace }}/colcon-cmake-src --no-deps
       - if: runner.os != 'Windows'
-        run: sudo pip3 install ${{ github.workspace }}/colcon-cmake-src
+        run: sudo pip3 install ${{ github.workspace }}/colcon-cmake-src --no-deps
       - run: |
           colcon version-check
           pip3 list
