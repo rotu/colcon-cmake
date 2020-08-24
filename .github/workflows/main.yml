@@ -24,7 +24,6 @@ jobs:
           pip3 install --user --upgrade --upgrade-strategy eager
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
-          catkin-pkg
           rosdep
           babeltrace
           catkin-pkg-modules
