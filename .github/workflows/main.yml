@@ -1,0 +1,24 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macOS-latest, ubuntu-18.04, ubuntu-20.04]
+        python-version: [3.6, 3.7, 3.8, 3.9.0-rc.1, pypy3]
+
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: ros-tooling/setup-ros@master
+      - uses: actions/checkout@v2
+        with:
+          path: colcon-cmake-src
+      - run: pip install ${{ github.workspace }}/colcon-cmake-src
+      - name: Install and test ROS
+        uses: ros-tooling/action-ros-ci@master
+        with:
+          package-name: rclcpp test_rclcpp
