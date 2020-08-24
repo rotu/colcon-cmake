@@ -25,7 +25,7 @@ jobs:
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
           catkin-pkg
-          python3-rosdep
+          rosdep
       - run: colcon version-check
       - run: pip3 list
       - name: Install and test ROS
