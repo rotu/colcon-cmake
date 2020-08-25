@@ -18,6 +18,10 @@ jobs:
           - os: ubuntu-20.04
             python: python3
     steps:
+      - if: runner.os == 'Windows'
+        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','nt_user'))"
+      - if: runner.os != 'Windows'
+        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','posix_user'))"
       - run: ${{matrix.python}} -m pip install --upgrade pip setuptools wheel
       - uses: ros-tooling/setup-ros@master
       - if: runner.os == 'macOS'
@@ -30,10 +34,6 @@ jobs:
       - run: ${{matrix.python}} -m pip list
       - run: ${{matrix.python}} -m site
       - run: ${{matrix.python}} -m sysconfig
-      - if: runner.os == 'Windows'
-        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','nt_user'))"
-      - if: runner.os != 'Windows'
-        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','posix_user'))"
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
