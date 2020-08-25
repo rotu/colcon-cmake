@@ -11,45 +11,21 @@ jobs:
         target-ros2-distro: [foxy]
 
     steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
+#       - uses: actions/setup-python@v2
+#         with:
+#           python-version: ${{ matrix.python-version }}
       - uses: ros-tooling/setup-ros@master
       - run: colcon version-check
       - run: pip3 list
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
+        # /home/runner/.local/bin
       - run: >
           pip3 install --user --upgrade --upgrade-strategy eager
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
-          rosdep
-          git+https://github.com/efficios/babeltrace.git
-          catkin-pkg
-          cryptography
-          empy
-          flake8
-          ifcfg
-          importlib-metadata
-          lark-parser
-          lxml
-          matplotlib
-          mock
-          mypy
-          netifaces
-          numpy
-          packaging
-          psutil
-          pycodestyle
-          pydot
-          pygraphviz
-          pytest
-          pytest-cov
-          pytest-mock
-          rosdistro
-          setuptools
-          pyyaml
+
       - run: colcon version-check
       - run: pip3 list
       - name: Install and test ROS
