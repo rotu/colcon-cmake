@@ -8,23 +8,29 @@ jobs:
       matrix:
         os: [windows-latest, macOS-latest, ubuntu-18.04, ubuntu-20.04]
         target-ros2-distro: [foxy]
+        include:
+          - os: windows-latest
+            python: py
+          - os: macOS-latest
+            python: python3
+          - os: ubuntu-18.04
+            python: python3
+          - os: ubuntu-20.04
+            python: python3
     steps:
       - uses: ros-tooling/setup-ros@master
       - if: runner.os == 'macOS'
         run: brew install lcov
       - if: runner.os == 'Windows'
         run: choco install lcov
+      - run: ${{matrix.python}} -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
       - run: colcon version-check
-      - run: pip3 list
+      - run: ${{matrix.python}} list
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
-      - if: runner.os == 'Windows'
-        run: python -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
-      - if: runner.os != 'Windows'
-        run: python3 -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
       - run: >
-          pip3 install --upgrade --upgrade-strategy eager --user
+          ${{matrix.python}} -m pip install --upgrade --upgrade-strategy eager --user
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
       - run: colcon version-check
