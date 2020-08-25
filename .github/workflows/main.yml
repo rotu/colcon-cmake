@@ -49,7 +49,7 @@ jobs:
           pytest-mock
           rosdistro
           setuptools
-          yaml
+          pyyaml
       - run: colcon version-check
       - run: pip3 list
       - name: Install and test ROS
