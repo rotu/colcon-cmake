@@ -18,6 +18,7 @@ jobs:
           - os: ubuntu-20.04
             python: python3
     steps:
+      - run: ${{matrix.python}} -m pip install --upgrade pip setuptools wheel
       - uses: ros-tooling/setup-ros@master
       - if: runner.os == 'macOS'
         run: brew install lcov
