@@ -10,6 +10,10 @@ jobs:
         target-ros2-distro: [foxy]
     steps:
       - uses: ros-tooling/setup-ros@master
+      - if: runner.os == 'macOS'
+        run: brew install lcov
+      - if: runner.os == 'Windows'
+        run: choco install lcov
       - run: colcon version-check
       - run: pip3 list
       - uses: actions/checkout@v2
