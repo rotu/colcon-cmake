@@ -25,7 +25,7 @@ jobs:
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
           rosdep
-          babeltrace
+          git+https://github.com/efficios/babeltrace.git
           catkin-pkg
           cryptography
           empy
