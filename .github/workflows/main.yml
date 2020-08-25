@@ -17,7 +17,7 @@ jobs:
           path: colcon-cmake-src
         # /home/runner/.local/bin
       - run: >
-          pip3 install --user --upgrade --upgrade-strategy eager
+          pip3 install --upgrade --upgrade-strategy eager
           ${{ github.workspace }}/colcon-cmake-src
           colcon-common-extensions
 
