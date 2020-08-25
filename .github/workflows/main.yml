@@ -18,7 +18,12 @@ jobs:
           - os: ubuntu-20.04
             python: python3
     steps:
-      - run: ${{matrix.python}} -c "import sysconfig, os; print('::add-path::' + sysconfig.get_path('scripts',os.name + '_user'))"
+      - run: |
+          ${{matrix.python}} -c "
+            import sysconfig, os
+            print('::add-path::' + sysconfig.get_path('scripts'))
+            print('::add-path::' + sysconfig.get_path('scripts', os.name + '_user'))
+          "
       - run: ${{matrix.python}} -m pip install --upgrade pip setuptools wheel
       - uses: ros-tooling/setup-ros@master
       - if: runner.os == 'macOS'
