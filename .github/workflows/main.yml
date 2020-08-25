@@ -25,12 +25,11 @@ jobs:
         run: |
           choco install lcov
           reg add HKLM\SYSTEM\CurrentControlSet\Control\FileSystem\ /v LongPathsEnabled /d 1 /f
+      - run: colcon version-check
+      - run: ${{matrix.python}} -m pip list
+      - run: ${{matrix.python}} -m site
+      - run: ${{matrix.python}} -m sysconfig
       - run: ${{matrix.python}} -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
-      - run: |
-          colcon version-check
-          ${{matrix.python}} -m pip list
-          ${{matrix.python}} -m site
-          ${{matrix.python}} -m sysconfig
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
