@@ -29,6 +29,7 @@ jobs:
       - run: pip3 list
       - name: Install and test ROS
         uses: ros-tooling/action-ros-ci@master
+        id: ros-ci
         with:
           package-name: rclcpp test_rclcpp
           target-ros2-distro: ${{ matrix.target-ros2-distro }}
@@ -38,4 +39,4 @@ jobs:
         if: always()
         with:
           name: colcon-log
-          path: ros_ws/log
+          path: ${{ steps.ros-ci.outputs.ros-workspace-directory-name }}/log
