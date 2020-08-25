@@ -40,7 +40,6 @@ jobs:
           netifaces
           numpy
           packaging
-          pkg-resources
           psutil
           pycodestyle
           pydot
@@ -48,7 +47,6 @@ jobs:
           pytest
           pytest-cov
           pytest-mock
-          qt5-bindings
           rosdistro
           setuptools
           yaml
