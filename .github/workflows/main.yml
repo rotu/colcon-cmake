@@ -26,8 +26,11 @@ jobs:
           choco install lcov
           reg add HKLM\SYSTEM\CurrentControlSet\Control\FileSystem\ /v LongPathsEnabled /d 1 /f
       - run: ${{matrix.python}} -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
-      - run: colcon version-check
-      - run: ${{matrix.python}} -m pip list
+      - run: |
+          colcon version-check
+          ${{matrix.python}} -m pip list
+          ${{matrix.python}} -m site
+          ${{matrix.python}} -m sysconfig
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
@@ -44,9 +47,9 @@ jobs:
           package-name: rclcpp test_rclcpp
           target-ros2-distro: ${{ matrix.target-ros2-distro }}
           vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/${{ matrix.target-ros2-distro }}/ros2.repos
-      - name: Upload log files
-        uses: actions/upload-artifact@v2
-        if: always()
-        with:
-          name: colcon-log-${{matrix.os}}
-          path: ${{ steps.ros-ci.outputs.ros-workspace-directory-name }}/log
+#       - name: Upload log files
+#         uses: actions/upload-artifact@v2
+#         if: always()
+#         with:
+#           name: colcon-log-${{matrix.os}}
+#           path: ${{ steps.ros-ci.outputs.ros-workspace-directory-name }}/log
