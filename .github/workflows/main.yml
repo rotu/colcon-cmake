@@ -30,7 +30,10 @@ jobs:
       - run: ${{matrix.python}} -m pip list
       - run: ${{matrix.python}} -m site
       - run: ${{matrix.python}} -m sysconfig
-      - run: ${{matrix.python}} -c "import site; print('::add-path::' + site.USER_BASE + '/bin')"
+      - if: runner.os == 'Windows'
+        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','nt_user'))"
+      - if: runner.os != 'Windows'
+        run: ${{matrix.python}} -c "import sysconfig; print('::add-path::' + sysconfig.get_path('scripts','posix_user'))"
       - uses: actions/checkout@v2
         with:
           path: colcon-cmake-src
