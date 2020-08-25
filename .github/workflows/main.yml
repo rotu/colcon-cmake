@@ -1,0 +1,35 @@
+name: CI
+on: push
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macOS-latest, ubuntu-18.04, ubuntu-20.04]
+        target-ros2-distro: [foxy]
+    steps:
+      - uses: ros-tooling/setup-ros@master
+      - if: runner.os == 'macOS'
+        run: brew install lcov
+      - if: runner.os == 'Windows'
+        run: choco install lcov
+      - run: colcon version-check
+      - run: pip3 list
+      - uses: actions/checkout@v2
+        with:
+          path: colcon-cmake-src
+        # /home/runner/.local/bin
+      - run: >
+          pip3 install --upgrade --upgrade-strategy eager
+          ${{ github.workspace }}/colcon-cmake-src
+          colcon-common-extensions
+
+      - run: colcon version-check
+      - run: pip3 list
+      - name: Install and test ROS
+        uses: ros-tooling/action-ros-ci@master
+        with:
+          package-name: rclcpp test_rclcpp
+          target-ros2-distro: ${{ matrix.target-ros2-distro }}
+          vcs-repo-file-url: https://raw.githubusercontent.com/ros2/ros2/${{ matrix.target-ros2-distro }}/ros2.repos
