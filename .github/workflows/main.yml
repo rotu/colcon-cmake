@@ -33,7 +33,7 @@ jobs:
           ifcfg
           importlib-metadata
           lark-parser
-          lttng
+          # lttng
           lxml
           matplotlib
           mock
