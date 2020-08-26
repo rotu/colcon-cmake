@@ -62,3 +62,9 @@ jobs:
         with:
           name: colcon-log-${{matrix.os}}
           path: ${{ steps.ros-ci.outputs.ros-workspace-directory-name }}/log
+      - name: Upload test_rclcpp build files
+        uses: actions/upload-artifact@v2
+        if: always()
+        with:
+          name: colcon-build-test-rclcpp-${{matrix.os}}
+          path: ${{ steps.ros-ci.outputs.ros-workspace-directory-name }}/build/test_rclcpp
