@@ -23,6 +23,9 @@ jobs:
       - uses: ros-tooling/setup-ros@master
       - if: runner.os == 'macOS'
         run: brew install lcov
+      - name: Disable RMW DLL because SIP
+        if: runner.os == 'macOS'
+        run: echo '::set-env name=RMW_IMPLEMENTATION_DISABLE_RUNTIME_SELECTION::1'
       - if: runner.os == 'Windows'
         run: |
           choco install lcov
