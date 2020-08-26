@@ -3,6 +3,8 @@ on: push
 jobs:
   build:
     runs-on: ${{ matrix.os }}
+    env:
+      COLCON_ALL_SHELLS: 1 # make colcon on windows NOT ignore Bash
     strategy:
       fail-fast: false
       matrix:
