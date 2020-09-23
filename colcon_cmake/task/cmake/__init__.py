@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import sys
+import functools
 
 from colcon_core.environment_variable import EnvironmentVariable
 from colcon_core.subprocess import check_output
@@ -204,6 +205,20 @@ def get_project_file(path, target):
     if not os.path.isfile(project_file):
         return None
     return project_file
+
+
+@functools.lru_cache(maxsize=1)
+def get_msbuild_version():
+    """
+    Get the version of msbuild or throw an exception.
+
+    :rtype: str
+    """
+    completed_process = subprocess.run(
+        ['msbuild', '-version', '-noLogo'],
+        capture_output=True
+    )
+    return completed_process.stdout.decode(encoding=sys.getdefaultencoding())
 
 
 def get_visual_studio_version():
